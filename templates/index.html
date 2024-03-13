@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <h1>Crop Prediction</h1>
+    <div id="bubble2" class="bubble-circle bubble-circle--left"></div>
+
+    <form action="/predict" method="post">
+        <label for="N">Nitrogen (N):</label><br>
+        <input type="number" id="N" name="input_data[]" min="0"><br>
+
+        <label for="P">Phosphorus (P):</label><br>
+        <input type="number" id="P" name="input_data[]" min="0"><br>
+
+        <label for="K">Potassium (K):</label><br>
+        <input type="number" id="K" name="input_data[]" min="0"><br>
+
+        <label for="temperature">Temperature:</label><br>
+        <input type="number" id="temperature" name="input_data[]" min="0"><br>
+
+        <label for="humidity">Humidity:</label><br>
+        <input type="number" id="humidity" name="input_data[]" min="0"><br>
+
+        <label for="ph">pH:</label><br>
+        <input type="number" id="ph" name="input_data[]" min="0"><br>
+
+        <label for="rainfall">Rainfall:</label><br>
+        <input type="number" id="rainfall" name="input_data[]" min="0"><br>
+
+        <input type="submit" value="Predict">
+    </form>
+    {% if prediction %}
+    <p>Predicted Crop: {{ prediction }}</p>
+    {% endif %}
+    <script>
+        var BubbleAnimationEffect = function () {
+            $('.bubble-circle').animate({
+                borderTopLeftRadius: String(Math.round(Math.random() * 200 + 350) + 'px'),
+                borderTopRightRadius: String(Math.round(Math.random() * 200 + 350) + 'px'),
+                borderBottomLeftRadius: String(Math.round(Math.random() * 200 + 350) + 'px'),
+                borderBottomRightRadius: String(Math.round(Math.random() * 200 + 350) + 'px'),
+            }, 1000, BubbleAnimationEffect);
+        };
+        BubbleAnimationEffect();
+        var BgColor = ['#47DDFA', '#47fae9', '#33f3e0', '#3ed7f5', '#13f5cb', '#71f2ff', '#a1e7ef', '#8cffdf'];
+        var i = 0;
+        var BubbleEffect = function () {
+
+            if (i < BgColor.length) {
+                $(".bubble-circle").css("background-color", BgColor[i]);
+            }
+            else {
+                i = 0;
+            }
+            i++;
+        };
+        setInterval(BubbleEffect, 3);
+    </script>
+</body>
+
+</html>
